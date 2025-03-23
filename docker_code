@@ -1,8 +1,0 @@
-sudo apt update -y
-sudo apt install -y docker.io
-
-sudo systemctl start docker
-sudo systemctl enable docker
-
-docker run -d --name prometheus --network host prom/prometheus
-docker run -d --name grafana --network host grafana/grafana

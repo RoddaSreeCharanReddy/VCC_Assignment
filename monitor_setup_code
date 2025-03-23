@@ -1,0 +1,21 @@
+sudo apt update -y
+sudo apt install -y docker.io
+
+sudo systemctl start docker
+sudo systemctl enable docker
+
+sudo apt install -y prometheus-node-exporter
+
+docker run -d --name prometheus \
+  --network monitoring \
+  -p 9090:9090 \
+  -v /etc/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml \
+  prom/prometheus
+
+docker run -d --name=grafana \
+  --network monitoring \
+  -p 3000:3000 \
+  grafana/grafana
+
+docker run -d --name prometheus --network host prom/prometheus
+docker run -d --name grafana --network host grafana/grafana
