@@ -1,0 +1,10 @@
+global:
+  scrape_interval: 15s 
+
+scrape_configs:
+  - job_name: 'node'
+    static_configs:
+      - targets: ['localhost:9090']
+  - job_name: 'gcp-instances'
+    static_configs:
+      - targets: ['<INSTANCE_IP>:9100']
