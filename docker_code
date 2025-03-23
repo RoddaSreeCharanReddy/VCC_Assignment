@@ -1,20 +1,8 @@
-services:
-  prometheus:
-    image: prom/prometheus
-    volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
-    ports:
-      - "9090:9090"
-    networks:
-      - monitoring
+sudo apt update -y
+sudo apt install -y docker.io
 
-  grafana:
-    image: grafana/grafana
-    ports:
-      - "3000:3000"
-    networks:
-      - monitoring
+sudo systemctl start docker
+sudo systemctl enable docker
 
-networks:
-  monitoring:
-    driver: bridge
+docker run -d --name prometheus --network host prom/prometheus
+docker run -d --name grafana --network host grafana/grafana
